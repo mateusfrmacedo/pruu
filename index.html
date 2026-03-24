@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mateus</title>
+    <meta
+      name="description"
+      content="Landing page pessoal minimalista com marquee, tipografia Surt e um pombo faminto."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site">
+      <header class="marquee-bar" aria-label="Contact information">
+        <div class="marquee-track">
+          <span>
+            💌 MATEUS.FREITAS@ME.COM 🌝 FOR INQUIRIES, PROJECTS, LARGE
+            INHERITANCE OFFERS, SPAM, GRIEVANCES, LIFE SECRETS ETC 🐀 ⚠️ PLEASE
+            DON’T FORGET TO FEED THE PIGEON BEFORE YOU LEAVE ⚠️
+          </span>
+          <span aria-hidden="true">
+            💌 MATEUS.FREITAS@ME.COM 🌝 FOR INQUIRIES, PROJECTS, LARGE
+            INHERITANCE OFFERS, SPAM, GRIEVANCES, LIFE SECRETS ETC 🐀 ⚠️ PLEASE
+            DON’T FORGET TO FEED THE PIGEON BEFORE YOU LEAVE ⚠️
+          </span>
+        </div>
+      </header>
+
+      <main class="hero">
+        <h1 class="hero-copy">
+          Hi, I’m <a href="mailto:mateus.freitas@me.com">Mateus</a>.<br />
+          <br />
+          I’m a Computer Science graduate who likes design, UI, and being a
+          little too online.<br />
+          <br />
+          I only keep this website so this stray pigeon has a place to
+          live.<br />
+          <br />
+          If you’re looking for my work, you can request my full portfolio via
+          e-mail, or check <a href="https://instagram.com/mateusfrmacedo" target="_blank" rel="noreferrer">my IG</a>.<br />
+          <br />
+        </h1>
+      </main>
+
+      <div class="stage" aria-hidden="true">
+        <div class="pigeon-wrap" id="pigeon-wrap">
+          <img
+            id="pigeon"
+            class="pigeon"
+            src="./pombo-03.gif"
+            alt=""
+            draggable="false"
+          />
+          <div id="pigeon-hitbox" class="pigeon-hitbox"></div>
+        </div>
+
+        <img
+          id="bread"
+          class="bread"
+          src="./bread.png"
+          alt="Draggable bread to feed the pigeon"
+          draggable="false"
+        />
+      </div>
+
+      <footer class="footer">
+        <p id="pigeon-counter" class="counter" aria-live="polite">
+          Look! 9,330 nice people have fed the pigeon. Aren’t you glad you’re
+          part of them?
+        </p>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
