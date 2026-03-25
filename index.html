@@ -2,34 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mateus</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>MATEUS</title>
     <meta
       name="description"
       content="Landing page pessoal minimalista com marquee, tipografia Surt e um pombo faminto."
     />
+    <link rel="icon" type="image/jpeg" href="./fav-icon.jpg" />
+    <link rel="shortcut icon" type="image/jpeg" href="./fav-icon.jpg" />
+    <link rel="apple-touch-icon" href="./fav-icon.jpg" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="site">
-      <header class="marquee-bar" aria-label="Contact information">
-        <div class="marquee-track">
-          <span>
-            💌 MATEUS.FREITAS@ME.COM 🌝 FOR INQUIRIES, PROJECTS, LARGE
-            INHERITANCE OFFERS, SPAM, GRIEVANCES, LIFE SECRETS ETC 🐀 ⚠️ PLEASE
-            DON’T FORGET TO FEED THE PIGEON BEFORE YOU LEAVE ⚠️
-          </span>
-          <span aria-hidden="true">
-            💌 MATEUS.FREITAS@ME.COM 🌝 FOR INQUIRIES, PROJECTS, LARGE
-            INHERITANCE OFFERS, SPAM, GRIEVANCES, LIFE SECRETS ETC 🐀 ⚠️ PLEASE
-            DON’T FORGET TO FEED THE PIGEON BEFORE YOU LEAVE ⚠️
-          </span>
-        </div>
-      </header>
-
       <main class="hero">
+        <div class="marquee-bar hero-marquee" aria-label="Contact information">
+          <div class="marquee-track">
+            <span>
+              💌 MATEUS.FREITAS@ME.COM 🌝 🌚 FOR INQUIRIES, PROJECTS, LARGE
+              INHERITANCE OFFERS 💰, SPAM, GRIEVANCES, LIFE SECRETS ETC 🐦 ⚠️
+              PLEASE DON’T FORGET TO FEED THE PIGEON BEFORE YOU LEAVE ⚠️
+            </span>
+            <span aria-hidden="true">
+              💌 MATEUS.FREITAS@ME.COM 🌝 🌚 FOR INQUIRIES, PROJECTS, LARGE
+              INHERITANCE OFFERS 💰, SPAM, GRIEVANCES, LIFE SECRETS ETC 🐦 ⚠️
+              PLEASE DON’T FORGET TO FEED THE PIGEON BEFORE YOU LEAVE ⚠️
+            </span>
+          </div>
+        </div>
+
         <h1 class="hero-copy">
-          Hi, I’m <a href="mailto:mateus.freitas@me.com">Mateus</a>.<br />
+          Hi, I’m <a href="mailto:mateus.freitas@me.com">Mateus Freitas</a>.<br />
           <br />
           I’m a Computer Science graduate who likes design, UI, and being a
           little too online.<br />
@@ -39,8 +45,12 @@
           <br />
           If you’re looking for my work, you can request my full portfolio via
           e-mail, or check <a href="https://instagram.com/mateusfrmacedo" target="_blank" rel="noreferrer">my IG</a>.<br />
-          <br />
         </h1>
+
+        <p id="pigeon-counter" class="counter hero-counter" aria-live="polite">
+          Look! 9.333 nice people have fed the pigeon. Aren’t you glad you’re
+          part of them?
+        </p>
       </main>
 
       <div class="stage" aria-hidden="true">
@@ -64,12 +74,6 @@
         />
       </div>
 
-      <footer class="footer">
-        <p id="pigeon-counter" class="counter" aria-live="polite">
-          Look! 9,330 nice people have fed the pigeon. Aren’t you glad you’re
-          part of them?
-        </p>
-      </footer>
     </div>
 
     <script src="./script.js"></script>

@@ -1,14 +1,28 @@
 const bread = document.getElementById("bread");
 const pigeonHitbox = document.getElementById("pigeon-hitbox");
 const counterEl = document.getElementById("pigeon-counter");
+const stage = document.querySelector(".stage");
+const site = document.querySelector(".site");
 
-const STORAGE_KEY = "pigeonPeopleCount";
-const DEFAULT_COUNT = 0;
+const STORAGE_KEY = "pigeonFeedCount";
+const LEGACY_STORAGE_KEYS = ["pigeonPeopleCount"];
+const DEFAULT_COUNT = 9333;
 
-let currentCount = Number.parseInt(
-  window.localStorage.getItem(STORAGE_KEY) || String(DEFAULT_COUNT),
-  10
-);
+function getStoredCount() {
+  const keys = [STORAGE_KEY, ...LEGACY_STORAGE_KEYS];
+
+  for (const key of keys) {
+    const value = Number.parseInt(window.localStorage.getItem(key) || "", 10);
+
+    if (Number.isFinite(value)) {
+      return value;
+    }
+  }
+
+  return DEFAULT_COUNT;
+}
+
+let currentCount = getStoredCount();
 
 const state = {
   dragging: false,
@@ -18,8 +32,82 @@ const state = {
   startTop: 0,
 };
 
+function initZoomLock() {
+  const blockedKeys = new Set(["+", "=", "-", "_", "0"]);
+  let lastTouchEnd = 0;
+
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (event.ctrlKey || event.metaKey) {
+        event.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  window.addEventListener("keydown", (event) => {
+    if (!(event.ctrlKey || event.metaKey)) {
+      return;
+    }
+
+    if (
+      blockedKeys.has(event.key) ||
+      event.code === "NumpadAdd" ||
+      event.code === "NumpadSubtract" ||
+      event.code === "Numpad0"
+    ) {
+      event.preventDefault();
+    }
+  });
+
+  document.addEventListener(
+    "gesturestart",
+    (event) => {
+      event.preventDefault();
+    },
+    { passive: false }
+  );
+
+  document.addEventListener(
+    "gesturechange",
+    (event) => {
+      event.preventDefault();
+    },
+    { passive: false }
+  );
+
+  document.addEventListener(
+    "touchmove",
+    (event) => {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  document.addEventListener(
+    "touchend",
+    (event) => {
+      const now = Date.now();
+
+      if (now - lastTouchEnd < 300) {
+        event.preventDefault();
+      }
+
+      lastTouchEnd = now;
+    },
+    { passive: false }
+  );
+}
+
 function renderCount() {
-  counterEl.textContent = `Look! ${currentCount.toLocaleString()} nice people have fed the pigeon. Aren’t you glad you’re part of them?`;
+  if (!counterEl) {
+    return;
+  }
+
+  counterEl.textContent = `Look! ${currentCount.toLocaleString("pt-BR")} nice people have fed the pigeon. Aren’t you glad you’re part of them?`;
 }
 
 function setBreadPosition(left, top) {
@@ -55,16 +143,22 @@ function clamp(value, min, max) {
 }
 
 function onDragMove(event) {
-  if (!state.dragging) {
+  if (!state.dragging || !stage) {
     return;
   }
 
   event.preventDefault();
   const point = pointerPosition(event);
-  const maxLeft = window.innerWidth - bread.offsetWidth;
-  const maxTop = window.innerHeight - bread.offsetHeight;
-  const nextLeft = clamp(point.x - state.offsetX, 0, maxLeft);
-  const nextTop = clamp(point.y - state.offsetY, 0, maxTop);
+  const stageRect = stage.getBoundingClientRect();
+  const siteHeight = Math.max(
+    site?.scrollHeight || 0,
+    document.documentElement.scrollHeight,
+    window.innerHeight
+  );
+  const maxLeft = stageRect.width - bread.offsetWidth;
+  const maxTop = siteHeight - bread.offsetHeight;
+  const nextLeft = clamp(point.x - stageRect.left - state.offsetX, 0, maxLeft);
+  const nextTop = clamp(window.scrollY + point.y - state.offsetY, 0, maxTop);
 
   setBreadPosition(nextLeft, nextTop);
 }
@@ -106,6 +200,11 @@ function onDragEnd(event) {
 }
 
 function onDragStart(event) {
+  if (!stage) {
+    return;
+  }
+
+  event.preventDefault();
   const point = pointerPosition(event);
   const breadRect = bread.getBoundingClientRect();
 
@@ -123,7 +222,11 @@ function onDragStart(event) {
   window.addEventListener("touchend", onDragEnd, { passive: false });
 }
 
+bread.addEventListener("dragstart", (event) => {
+  event.preventDefault();
+});
 bread.addEventListener("mousedown", onDragStart);
 bread.addEventListener("touchstart", onDragStart, { passive: false });
 
+initZoomLock();
 renderCount();
